@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enhanced HTML5 Content & Form</title>
+  <meta name="description" content="A single-file demo showcasing lists, tables, media, and a complete, accessible HTML5 form with native validation." />
+  <style>
+    :root {
+      --fg: #1f2937;
+      --bg: #ffffff;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --radius: 12px;
+      --pad: clamp(1rem, 2vw + 0.5rem, 2rem);
+      --maxw: 74rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0b0f14; --fg:#e5e7eb; --border:#1f2937; --muted:#9aa4b2; }
+    }
+    html { color-scheme: light dark; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); line-height:1.6; }
+
+    /* Layout */
+    header, main, footer { padding-inline: var(--pad); }
+    header { border-bottom:1px solid var(--border); padding-block:1rem; }
+    .container { max-width: var(--maxw); margin-inline: auto; }
+    .grid { display:grid; gap:clamp(1rem, 2vw, 1.25rem); grid-template-columns: 1fr; }
+    @media (min-width: 1000px) { .grid { grid-template-columns: 2fr 1fr; } }
+
+    /* Cards */
+    .card { border:1px solid var(--border); border-radius:var(--radius); padding: var(--pad); background: color-mix(in oklab, var(--bg) 95%, var(--fg) 5%); }
+
+    /* Table */
+    table { width:100%; border-collapse:collapse; }
+    caption { text-align:left; font-weight:700; margin-bottom:.5rem; }
+    th, td { border:1px solid var(--border); padding:.6rem; text-align:left; vertical-align:top; }
+    thead th { background: color-mix(in oklab, var(--bg) 92%, var(--fg) 8%); }
+
+    /* Forms */
+    fieldset { border:1px solid var(--border); border-radius:var(--radius); padding:1rem; margin-block:1rem; }
+    legend { padding:0 .5rem; font-weight:700; color:var(--accent); }
+    label { display:block; margin-top:.75rem; font-weight:600; }
+    .hint { font-size:.9rem; color:var(--muted); margin:.25rem 0 .5rem; }
+    input, select, textarea { width:100%; max-width:520px; padding:.65rem .75rem; border:1px solid var(--border); border-radius:10px; background:var(--bg); color:inherit; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+    .inline { display:flex; gap:1rem; align-items:center; }
+    .stack { display:grid; gap:.25rem; }
+
+    /* Misc */
+    .skip-link { position:absolute; inset-inline-start:0; inset-block-start:-100px; background:var(--accent); color:white; padding:.5rem .75rem; border-radius:.5rem; z-index:100; }
+    .skip-link:focus { inset-block-start:.5rem; }
+
+    footer { border-top:1px solid var(--border); padding-block:2rem; margin-top:2rem; }
+    small, figcaption { color:var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition:none !important; animation:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="container" role="banner">
+    <h1>📘 Assignment: Enhancing HTML5 Content & Mastering Forms</h1>
+    <p>This page demonstrates well-structured content (lists, tables, media) and a complete, accessible HTML5 form using native validation—no JavaScript required.</p>
+  </header>
+
+  <main id="main" class="container grid" tabindex="-1">
+    <section class="card" aria-labelledby="content-examples">
+      <h2 id="content-examples">Structured Content Examples</h2>
+
+      <article aria-labelledby="lists-heading">
+        <h3 id="lists-heading">Lists</h3>
+        <div class="grid" style="grid-template-columns:1fr; gap:1rem;">
+          <div>
+            <h4>Unordered List</h4>
+            <ul>
+              <li>Semantic HTML5 layout</li>
+              <li>Accessible form structure</li>
+              <li>Native validation attributes</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Ordered Steps</h4>
+            <ol>
+              <li>Enter personal information</li>
+              <li>Provide account details</li>
+              <li>Confirm preferences and submit</li>
+            </ol>
+          </div>
+          <div>
+            <h4>Definitions</h4>
+            <dl>
+              <dt>ARIA</dt><dd>Accessible Rich Internet Applications—adds clarity for assistive tech when needed.</dd>
+              <dt>Autocomplete</dt><dd>Hints the browser how to store/fill user data in forms.</dd>
+            </dl>
+          </div>
+        </div>
+      </article>
+
+      <article aria-labelledby="table-heading">
+        <h3 id="table-heading">Table</h3>
+        <table>
+          <caption>Form Fields & Validation Overview</caption>
+          <thead>
+            <tr>
+              <th scope="col">Field</th>
+              <th scope="col">Type</th>
+              <th scope="col">Key Attributes</th>
+              <th scope="col">Validation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Email</th>
+              <td><code>input[type=email]</code></td>
+              <td><code>required</code>, <code>autocomplete=email</code></td>
+              <td>Must be a valid email address</td>
+            </tr>
+            <tr>
+              <th scope="row">Phone</th>
+              <td><code>input[type=tel]</code></td>
+              <td><code>pattern</code>, <code>inputmode</code></td>
+              <td>10 digits only (e.g., 0712345678)</td>
+            </tr>
+            <tr>
+              <th scope="row">Password</th>
+              <td><code>input[type=password]</code></td>
+              <td><code>minlength</code>, <code>pattern</code></td>
+              <td>6+ chars, at least 1 letter and 1 number</td>
+            </tr>
+            <tr>
+              <th scope="row">Age</th>
+              <td><code>input[type=number]</code></td>
+              <td><code>min</code>, <code>max</code>, <code>step</code></td>
+              <td>Between 18 and 100</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article aria-labelledby="media-heading">
+        <h3 id="media-heading">Media</h3>
+        <figure>
+          <img src="https://via.placeholder.com/800x400" alt="Illustrative placeholder showing a browser window mockup" />
+          <figcaption>Figure 1. Sample image embedded with alt text.</figcaption>
+        </figure>
+        <p class="inline">
+          <audio controls aria-label="Sample audio clip">
+            <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <video controls width="360" aria-label="Sample video">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+          </video>
+        </p>
+      </article>
+    </section>
+
+    <aside class="card" aria-labelledby="tips-heading">
+      <h2 id="tips-heading">Tips for Success</h2>
+      <ul>
+        <li>Use clear labels linked with <code>for</code>/<code>id</code>.</li>
+        <li>Group related inputs with <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>.</li>
+        <li>Prefer native validation via <code>required</code>, <code>type</code>, <code>pattern</code>, <code>min</code>/<code>max</code>.</li>
+        <li>Provide helpful placeholders and hints.</li>
+        <li>Ensure keyboard focus styles are visible.</li>
+      </ul>
+    </aside>
+
+    <section class="card" aria-labelledby="form-heading">
+      <h2 id="form-heading">Complete HTML5 Form</h2>
+      <p id="form-hint" class="hint">All fields marked with <span aria-hidden="true">*</span><span class="visually-hidden"> required</span> are required. This form uses native HTML5 validation only.</p>
+
+      <form action="#" method="post" autocomplete="on" aria-describedby="form-hint">
+        <!-- Personal Information -->
+        <fieldset>
+          <legend>Personal Information</legend>
+
+          <label for="given-name">First Name <span aria-hidden="true">*</span></label>
+          <input id="given-name" name="given-name" type="text" placeholder="Jane" required autocomplete="given-name" />
+
+          <label for="family-name">Last Name <span aria-hidden="true">*</span></label>
+          <input id="family-name" name="family-name" type="text" placeholder="Doe" required autocomplete="family-name" />
+
+          <label for="email">Email <span aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" placeholder="jane.doe@example.com" required autocomplete="email" />
+
+          <label for="tel">Phone (10 digits) <span aria-hidden="true">*</span></label>
+          <input id="tel" name="tel" type="tel" placeholder="0712345678" inputmode="numeric" pattern="[0-9]{10}" required autocomplete="tel" />
+          <p class="hint" id="tel-hint">Format: 10 digits, e.g., 0712345678.</p>
+
+          <label for="dob">Date of Birth <span aria-hidden="true">*</span></label>
+          <input id="dob" name="dob" type="date" required />
+
+          <label for="age">Age <span aria-hidden="true">*</span></label>
+          <input id="age" name="age" type="number" min="18" max="100" step="1" required />
+        </fieldset>
+
+        <!-- Account Details -->
+        <fieldset>
+          <legend>Account Details</legend>
+
+          <label for="username">Username <span aria-hidden="true">*</span></label>
+          <input id="username" name="username" type="text" placeholder="jane_doe" required minlength="3" maxlength="20" autocomplete="username" />
+
+          <label for="password">Password <span aria-hidden="true">*</span></label>
+          <input id="password" name="password" type="password" placeholder="At least 6 chars incl. a number" required minlength="6" pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}" autocomplete="new-password" />
+          <p class="hint">Must be 6+ characters and include at least one letter and one number.</p>
+
+          <label for="account-id">Account ID (read-only)</label>
+          <input id="account-id" name="account-id" type="text" value="ACCT-2025-001" readonly />
+        </fieldset>
+
+        <!-- Address -->
+        <fieldset>
+          <legend>Address</legend>
+
+          <label for="address1">Address line 1 <span aria-hidden="true">*</span></label>
+          <input id="address1" name="address1" type="text" placeholder="123 Market St" required autocomplete="address-line1" />
+
+          <label for="address2">Address line 2</label>
+          <input id="address2" name="address2" type="text" placeholder="Apartment, suite, etc." autocomplete="address-line2" />
+
+          <label for="city">City / Town <span aria-hidden="true">*</span></label>
+          <input id="city" name="city" type="text" placeholder="Nairobi" required autocomplete="address-level2" />
+
+          <label for="region">Region / County</label>
+          <input id="region" name="region" type="text" placeholder="Nairobi" autocomplete="address-level1" />
+
+          <label for="postcode">Postal Code</label>
+          <input id="postcode" name="postcode" type="text" placeholder="00100" inputmode="numeric" pattern="\d{5}" autocomplete="postal-code" />
+
+          <label for="country">Country <span aria-hidden="true">*</span></label>
+          <select id="country" name="country" required autocomplete="country-name">
+            <option value="" disabled selected>Select a country</option>
+            <option>Kenya</option>
+            <option>Uganda</option>
+            <option>Tanzania</option>
+            <option>Rwanda</option>
+            <option>Ethiopia</option>
+          </select>
+        </fieldset>
+
+        <!-- Preferences & Extras -->
+        <fieldset>
+          <legend>Preferences & Extras</legend>
+
+          <label for="website">Website</label>
+          <input id="website" name="website" type="url" placeholder="https://example.com" autocomplete="url" />
+
+          <label for="color">Favorite Color</label>
+          <input id="color" name="color" type="color" value="#2563eb" />
+
+          <label for="experience">Experience (0–10)</label>
+          <input id="experience" name="experience" type="range" min="0" max="10" step="1" value="5" />
+
+          <label for="role">Role</label>
+          <input list="roles" id="role" name="role" placeholder="Choose or type..." />
+          <datalist id="roles">
+            <option value="Student"></option>
+            <option value="Developer"></option>
+            <option value="Designer"></option>
+          </datalist>
+
+          <div class="stack" role="group" aria-labelledby="contact-pref-label">
+            <span id="contact-pref-label" class="hint" aria-hidden="true">Contact preference</span>
+            <label class="inline"><input type="radio" name="contact-pref" value="email" required /> Email</label>
+            <label class="inline"><input type="radio" name="contact-pref" value="phone" required /> Phone</label>
+          </div>
+
+          <label class="inline"><input type="checkbox" name="newsletter" checked /> Subscribe to newsletter</label>
+
+          <label for="avatar">Upload avatar (image only)</label>
+          <input id="avatar" name="avatar" type="file" accept="image/*" />
+
+          <label for="time">Preferred Contact Time</label>
+          <input id="time" name="time" type="time" />
+        </fieldset>
+
+        <!-- Agreements -->
+        <fieldset>
+          <legend>Agreements</legend>
+          <label class="inline"><input type="checkbox" name="terms" required /> I agree to the Terms & Conditions *</label>
+          <label class="inline"><input type="checkbox" name="privacy" required /> I agree to the Privacy Policy *</label>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <p><small>&copy; 2025 Enhanced Form Demo. Built with semantic HTML and native validation.</small></p>
+  </footer>
+</body>
+</html>
